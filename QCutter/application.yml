@@ -1,20 +1,17 @@
 server:
-  port: 3000
+  port: 3001 # Avoids conflict with existing node/nextjs processes
+
 spring:
   kafka:
-    bootstrap-servers: localhost:29092
+    bootstrap-servers: localhost:29092 # Points to the mapped external port
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      # Use the updated package path for 4.0+
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
       acks: all
-      # This is the standard Spring Boot way to pass properties to the JsonSerializer
-      properties:
-        spring.json.add.type.headers: false
     consumer:
       group-id: ticket-service-group
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       properties:
         spring.json.trusted.packages: "*"
