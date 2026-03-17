@@ -1,10 +1,16 @@
+server:
+  port: 3000
 spring:
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: localhost:29092
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # Use the updated package path for 4.0+
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-      acks: all # Highest reliability
+      acks: all
+      # This is the standard Spring Boot way to pass properties to the JsonSerializer
+      properties:
+        spring.json.add.type.headers: false
     consumer:
       group-id: ticket-service-group
       auto-offset-reset: earliest
