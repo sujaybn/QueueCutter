@@ -19,9 +19,9 @@ public class BookingProducer {
             String jsonEvent = objectMapper.writeValueAsString(event);
 
             kafkaTemplate.send("orders", event.ticketId(), jsonEvent);
-            System.out.println("✅ Sent JSON to Kafka: " + jsonEvent);
+            System.out.println("Sent JSON to Kafka: " + jsonEvent);
         } catch (Exception e) {
-            System.err.println("❌ Error serializing event: " + e.getMessage());
+            System.err.println("Error serializing event: " + e.getMessage());
         }
     }
 }
